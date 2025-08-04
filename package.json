@@ -1,0 +1,30 @@
+{
+  "name": "jdev_helpers",
+  "version": "1.2.1",
+  "description": "jdev helpers for js and angular",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "jdev"
+  ],
+  "author": "jdev",
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/common": "^19.2.14",
+    "@angular/core": "^19.2.14",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "rollup": "^4.45.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+}
