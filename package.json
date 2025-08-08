@@ -1,12 +1,13 @@
 {
   "name": "jdev_helpers",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "jdev helpers for js and angular",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "angular_folder_structure.sh"
   ],
   "scripts": {
     "build": "tsup"
