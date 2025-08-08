@@ -2,7 +2,7 @@
 
 
 
-
+docker run -it -v $(pwd):/myWorkDir nodejs-util:node22 install
 docker run -it -v $(pwd):/myWorkDir nodejs-util:node22 run build
 npm adduser
 npm whoami
@@ -10,6 +10,7 @@ npm publish
 
 ////////////
 cd /datahdd/development/codes2025/github/jdd/fe-helper/ && \
+docker run -it -v $(pwd):/myWorkDir nodejs-util:node22 install && \
 docker run -it -v $(pwd):/myWorkDir nodejs-util:node22 run build && \
 npm adduser && \
 npm publish

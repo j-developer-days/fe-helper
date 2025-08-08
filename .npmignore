@@ -1,0 +1,5 @@
+./node_modules/
+src/
+
+!dist
+!angular_folder_structure.sh
