@@ -1,0 +1,12 @@
+#showMore {
+    color: green;
+    font-weight: bold;
+    background-color: aquamarine;
+}
+
+#ifNotFoundInSelect {
+    color: red;
+    font-style: italic;
+    background-color: yellow;
+    text-align: center;
+}

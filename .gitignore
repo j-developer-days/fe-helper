@@ -3,3 +3,7 @@ node_modules/*
 package-lock.json
 
 **/.idea/**
+
+**/.vscode/**
+**/node_modules/**
+jdev-workspace/.vscode/**

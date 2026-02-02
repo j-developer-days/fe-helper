@@ -1,0 +1,48 @@
+<div>
+    <div class="mb-3">
+        <label for="inputForSearch" style="display: block;" class="form-label fw-bolder">{{ labelForSearchInputI()
+            }}</label>
+        <input type="text" style="display: inline;" class="form-control w-50 me-2"
+            [id]="idForInputTextSearchInputI() ??  'inputForSearch'"
+            [placeholder]="placeHolderForSearchInputI() ? placeHolderForSearchInputI() : ''"
+            [(ngModel)]="inputTextSearchM" (input)="searchInputEvent()">
+        @if (showButtonCall) {
+        <button type="button" class="btn btn-primary"
+            [disabled]="this.canEmptySearchInputI() === false && inputTextSearchM() === ''"
+            (click)="callClickEvent()">Call</button>
+        }
+    </div>
+
+    @if (previousData && previousData.response!.items!.length > 0) {
+    <div class="mb-3">
+        <select class="form-select w-50" [(ngModel)]="selectedItem" (change)="selectChangeEvent()"
+            (click)="selectClickEvent()">
+            <option [value]="selectDefaultValue">Please select</option>
+            @for (item of previousData.response?.items; track $index; ) {
+            <option class="availableOptions" [value]="item.id">
+                {{ item.name }}
+            </option>
+            }
+            @if(showMoreEnableInSelectI() && (previousData.response!.hasMore || previousData.response!.nextCursor !=
+            null)) {
+            <option [value]="showMoreConst + previousData.response!.nextCursor" id="showMore">Show more ...
+            </option>
+            }
+            @if(showIfNotFoundInSelectI()){
+            <option [value]="cannotFindInSelectConst" id="ifNotFoundInSelect">
+                {{ labelForShowIfNotFoundInSelectI() === null ? 'Add new one' : labelForShowIfNotFoundInSelectI() }}
+            </option>
+            }
+        </select>
+    </div>
+    } @else {
+        @if(callButtonClicked === true) {
+            <span>By your request not found data @if(showIfNotFoundInSelectI()){ , but you can add new one }</span>
+            @if(showIfNotFoundInSelectI()) {
+                <button class="btn btn-info" (click)="addNewClickEvent()">
+                    {{ labelForShowIfNotFoundInSelectI() === null ? 'Add new one' : labelForShowIfNotFoundInSelectI() }}
+                </button>
+            }
+        }
+    }
+</div>

@@ -1,6 +1,6 @@
 {
   "name": "jdev_helpers",
-  "version": "1.2.4",
+  "version": "1.4.9",
   "description": "jdev helpers for js and angular",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,15 +17,19 @@
   ],
   "author": "jdev",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
-    "@angular/common": "^19.2.14",
-    "@angular/core": "^19.2.14",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
     "rollup": "^4.45.1",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/forms": "^20.0.0"
   }
 }
