@@ -4,6 +4,6 @@ FROM node:24-alpine
 
 WORKDIR /myWorkDir
 
-RUN npm install -g npm@11.6.2
+RUN npm install -g npm@11.9.0
 
 ENTRYPOINT ["node"]
