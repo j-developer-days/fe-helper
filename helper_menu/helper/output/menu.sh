@@ -7,6 +7,7 @@
 #########
 # 1 - main COMMAND_NUMBER
 # 2 - npm install param - lib name(11) or force npm install(10) or npm audit(13) or (17) lib name
+#     101 - for ng add new lib
 #########
 
 NODE_VERSION_FOR_DOCKER_IMAGE=node24a
@@ -74,11 +75,14 @@ if [ -z "$1" ]; then
   echo '3 - Create angular service'
   echo '4 - Create angular environments'
   echo '5 - Create angular folder structure'
+  echo '6 - Extract angular translations'
 
   echo '--------------------------------------------------------'
   
   echo '10 - Npm install(param force)'
+  echo '101 - Angular add lib'
   echo '11 - Npm install by param (param lib name)'
+  echo '111 - Npm install(--legacy-peer-deps)'
   echo '12 - Npm audit'
   echo '13 - Npm audit fix (param force)'
   echo '14 - Npm fund'
@@ -115,6 +119,10 @@ case "$COMMAND_NUMBER" in
     "5")
         sh node_modules/jdev_helpers/angular_folder_structure.sh
     ;;
+    "6")
+        docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+                 extract-i18n
+    ;;
 
     "10")
         IS_FORCE=
@@ -127,9 +135,29 @@ case "$COMMAND_NUMBER" in
         docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
         install $IS_FORCE
     ;;
+    "101")
+        LIB_NAME=
+        if [ -z "$2" ]; then
+          read -p "Write please lib name: " LIB_NAME
+        else
+          LIB_NAME=$2
+        fi
+        docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+               add ${LIB_NAME}
+    ;;
     "11")
+      LIB_NAME=
+      if [ -z "$2" ]; then
+        read -p "Write please lib name: " LIB_NAME
+      else
+        LIB_NAME=$2
+      fi
       docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
-      install $2
+            install ${LIB_NAME} --legacy-peer-deps
+    ;;
+    "111")
+      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
+      install --legacy-peer-deps
     ;;
     "12")
       docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} audit
@@ -151,7 +179,7 @@ case "$COMMAND_NUMBER" in
     "15")
       rm -rfv node_modules/
       docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
-      cache cache clean --force
+      cache clean --force
       rm -fv package-lock.json
     ;;
     "16")
