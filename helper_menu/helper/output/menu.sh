@@ -7,7 +7,8 @@
 #########
 # 1 - main COMMAND_NUMBER
 # 2 - npm install param - lib name(11) or force npm install(10) or npm audit(13) or (17) lib name
-#     101 - for ng add new lib
+#     (101) - for ng add new lib
+#     (20) - for arguments
 #########
 
 NODE_VERSION_FOR_DOCKER_IMAGE=node24a
@@ -50,7 +51,7 @@ done
 # echo path to creation - /$COMPONENT_TYPE/$NAME
 
 docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
- generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true && \
+ generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=container && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
 
@@ -64,7 +65,7 @@ else
 fi
 
 docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
- generate service services/$NAME --skip-tests=true && \
+ generate service services/$NAME --skip-tests=true --type=service && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
 
@@ -90,13 +91,25 @@ if [ -z "$1" ]; then
   echo '16 - Npm list installed packages'
   echo '17 - Npm update by param (param lib name)'
   echo '18 - Npm check for outdated packages'
-  
+  echo '19 - Angular build'
+  echo '20 - Angular build with localize'
 
   read -p "Enter your command number: " COMMAND_NUMBER
 else
   echo 'Run with param...'
   COMMAND_NUMBER=$1
 fi
+
+echo '||||||||||||||||||||||||||||||||||||||||||||||'
+echo "Number of arguments: $#"
+
+# The "$@" preserves spaces in individual arguments
+args=("$@")
+
+for ((i=0; i<$#; i++)); do
+    echo "Param $((i+1)): ${args[$i]}"
+done
+echo '||||||||||||||||||||||||||||||||||||||||||||||'
 
 #-----------------------------
 
@@ -198,6 +211,14 @@ case "$COMMAND_NUMBER" in
     "18")
       docker run --rm -it -v $(pwd):/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       outdated
+    ;;
+    "19")
+      docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+             build
+    ;;
+    "20")
+      docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+             build --localize $2
     ;;
     "e"|"E") exit
     ;;
