@@ -51,7 +51,7 @@ done
 # echo path to creation - /$COMPONENT_TYPE/$NAME
 
 docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
- generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=container && \
+ generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=component && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
 
