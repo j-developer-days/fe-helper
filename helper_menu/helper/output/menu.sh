@@ -9,10 +9,12 @@
 # 2 - npm install param - lib name(11) or force npm install(10) or npm audit(13) or (17) lib name
 #     (101) - for ng add new lib
 #     (20) - for arguments
+#     (6) - for arguments localizations
 #########
 
 NODE_VERSION_FOR_DOCKER_IMAGE=node24a
 NODE_VERSION_FOR_DOCKER_IMAGE_FULL=node24
+PORT=%s
 
 
 create_angular_component(){
@@ -115,7 +117,8 @@ echo '||||||||||||||||||||||||||||||||||||||||||||||'
 
 case "$COMMAND_NUMBER" in
     "1")
-        docker run --rm -it -p %s:4200 -v \
+        echo "run project on - http://localhost:${PORT}/"
+        docker run --rm -it -p ${PORT}:4200 -v \
         $(pwd):/myWorkDir angular-dev-run:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL}
     ;;
     "2")
@@ -134,7 +137,7 @@ case "$COMMAND_NUMBER" in
     ;;
     "6")
         docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
-                 extract-i18n
+                 extract-i18n ${2}
     ;;
 
     "10")
