@@ -52,7 +52,7 @@ done
 
 # echo path to creation - /$COMPONENT_TYPE/$NAME
 
-docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=component && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
@@ -66,7 +66,7 @@ else
     NAME=$1
 fi
 
-docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate service services/$NAME --skip-tests=true --type=service && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
@@ -216,11 +216,11 @@ case "$COMMAND_NUMBER" in
       outdated
     ;;
     "19")
-      docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
              build
     ;;
     "20")
-      docker run -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
              build --localize $2
     ;;
     "e"|"E") exit
