@@ -1,17 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-mkdir -p ./src/app/components/auxiliary
-mkdir -p ./src/app/components/main
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/"
 
-mkdir -p ./src/app/services
+echo 'path - '"${SCRIPT_DIR}"
 
-mkdir -p ./src/app/helpers
+mkdir -p "${SCRIPT_DIR}"src/app/components/auxiliary
+mkdir -p "${SCRIPT_DIR}"src/app/components/main
 
-mkdir -p ./src/assets/audio
-mkdir -p ./src/assets/i18n
-mkdir -p ./src/assets/images
-mkdir -p ./src/assets/videos
+mkdir -p "${SCRIPT_DIR}"src/app/services
 
-mkdir -p ./src/environments
+mkdir -p "${SCRIPT_DIR}"src/app/helpers
+mkdir -p "${SCRIPT_DIR}"src/app/models
 
-tree ./src
+mkdir -p "${SCRIPT_DIR}"src/assets/audio
+mkdir -p "${SCRIPT_DIR}"src/assets/i18n
+mkdir -p "${SCRIPT_DIR}"src/assets/images
+mkdir -p "${SCRIPT_DIR}"src/assets/videos
+mkdir -p "${SCRIPT_DIR}"src/locale
+
+mkdir -p "${SCRIPT_DIR}"src/environments
+
+tree "${SCRIPT_DIR}"src
+pwd

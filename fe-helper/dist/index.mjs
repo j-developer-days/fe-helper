@@ -1,6 +1,6 @@
 // src/angular/http-parent.service.ts
-import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 var HttpParentService = class {
   http = inject(HttpClient);
   constructor() {

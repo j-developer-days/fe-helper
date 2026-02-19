@@ -45,8 +45,8 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // src/angular/http-parent.service.ts
-var import_http = require("@angular/common/http");
 var import_core = require("@angular/core");
+var import_http = require("@angular/common/http");
 var HttpParentService = class {
   http = (0, import_core.inject)(import_http.HttpClient);
   constructor() {

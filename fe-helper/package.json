@@ -1,6 +1,6 @@
 {
   "name": "jdev_helpers",
-  "version": "1.4.9",
+  "version": "1.5.3",
   "description": "jdev helpers for js and angular",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,6 +11,9 @@
   ],
   "scripts": {
     "build": "tsup"
+  },
+  "publishConfig": {
+    "provenance": false
   },
   "keywords": [
     "jdev"
