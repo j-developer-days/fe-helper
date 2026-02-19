@@ -135,7 +135,7 @@ case "${COMMAND_NUMBER}" in
         sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
     ;;
     "5")
-        sh node_modules/jdev_helpers/angular_folder_structure.sh
+        sh "${SCRIPT_DIR}"node_modules/jdev_helpers/angular_folder_structure.sh
     ;;
     "6")
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
