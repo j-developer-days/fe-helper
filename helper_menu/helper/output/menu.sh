@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/"
 
 # generate date time - %s
 # -z string - True if the string length is zero.
@@ -21,7 +23,7 @@ create_angular_component(){
   NAME=''
 
 if [ -z "$1" ]; then
-    read -p "Write your COMPONENT name, please: " NAME
+    read -rp "Write your COMPONENT name, please: " NAME
 else
     NAME=$1
 fi
@@ -32,9 +34,9 @@ while true; do # Loop indefinitely until explicitly broken
     echo '1 - main component'
     echo '2 - auxiliary component'
 
-    read -p "Choose component type, please: " NUMBER
+    read -rp "Choose component type, please: " NUMBER
 
-    case "$NUMBER" in
+    case "${NUMBER}" in
         1) COMPONENT_TYPE='main'
         ;;
         2) COMPONENT_TYPE='auxiliary'
@@ -96,7 +98,7 @@ if [ -z "$1" ]; then
   echo '19 - Angular build'
   echo '20 - Angular build with localize'
 
-  read -p "Enter your command number: " COMMAND_NUMBER
+  read -rp "Enter your command number: " COMMAND_NUMBER
 else
   echo 'Run with param...'
   COMMAND_NUMBER=$1
@@ -115,7 +117,7 @@ echo '||||||||||||||||||||||||||||||||||||||||||||||'
 
 #-----------------------------
 
-case "$COMMAND_NUMBER" in
+case "${COMMAND_NUMBER}" in
     "1")
         echo "run project on - http://localhost:${PORT}/"
         docker run --rm -it -p ${PORT}:4200 -v \
@@ -154,7 +156,7 @@ case "$COMMAND_NUMBER" in
     "101")
         LIB_NAME=
         if [ -z "$2" ]; then
-          read -p "Write please lib name: " LIB_NAME
+          read -rp "Write please lib name: " LIB_NAME
         else
           LIB_NAME=$2
         fi
@@ -164,7 +166,7 @@ case "$COMMAND_NUMBER" in
     "11")
       LIB_NAME=
       if [ -z "$2" ]; then
-        read -p "Write please lib name: " LIB_NAME
+        read -rp "Write please lib name: " LIB_NAME
       else
         LIB_NAME=$2
       fi
@@ -196,7 +198,7 @@ case "$COMMAND_NUMBER" in
       rm -rfv node_modules/
       docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       cache clean --force
-      rm -fv package-lock.json
+      rm -fv "${SCRIPT_DIR}"package-lock.json
     ;;
     "16")
       docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} ls
@@ -227,6 +229,6 @@ case "$COMMAND_NUMBER" in
     ;;
     "c"|"C") clear
     ;;
-    *) sh -e $0
+    *) bash -e "${BASH_SOURCE[0]}"
     ;;
 esac
