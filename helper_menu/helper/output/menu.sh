@@ -54,7 +54,7 @@ done
 
 # echo path to creation - /$COMPONENT_TYPE/$NAME
 
-docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=component && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
@@ -68,7 +68,7 @@ else
     NAME=$1
 fi
 
-docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate service services/$NAME --skip-tests=true --type=service && \
 sudo chown -vR $(whoami) $(pwd)/src
 }
@@ -121,7 +121,7 @@ case "${COMMAND_NUMBER}" in
     "1")
         echo "run project on - http://localhost:${PORT}/"
         docker run --rm -it -p ${PORT}:4200 -v \
-        $(pwd):/myWorkDir angular-dev-run:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL}
+        "${SCRIPT_DIR}":/myWorkDir angular-dev-run:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL}
     ;;
     "2")
         create_angular_component
@@ -130,7 +130,7 @@ case "${COMMAND_NUMBER}" in
         create_angular_service
     ;;
     "4")
-        docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+        docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
          generate environments && \
         sudo chown -vR $(whoami) $(pwd)/src
     ;;
@@ -138,7 +138,7 @@ case "${COMMAND_NUMBER}" in
         sh node_modules/jdev_helpers/angular_folder_structure.sh
     ;;
     "6")
-        docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+        docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
                  extract-i18n ${2}
     ;;
 
@@ -150,7 +150,7 @@ case "${COMMAND_NUMBER}" in
           IS_FORCE=--force
         fi
         
-        docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
+        docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
         install $IS_FORCE
     ;;
     "101")
@@ -160,7 +160,7 @@ case "${COMMAND_NUMBER}" in
         else
           LIB_NAME=$2
         fi
-        docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+        docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
                add ${LIB_NAME}
     ;;
     "11")
@@ -170,15 +170,15 @@ case "${COMMAND_NUMBER}" in
       else
         LIB_NAME=$2
       fi
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
             install ${LIB_NAME} --legacy-peer-deps
     ;;
     "111")
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
       install --legacy-peer-deps
     ;;
     "12")
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} audit
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} audit
     ;;
     "13")
       IS_FORCE=
@@ -187,21 +187,21 @@ case "${COMMAND_NUMBER}" in
       else
         IS_FORCE=--force
       fi
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       audit fix $IS_FORCE
     ;;
     "14")
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       fund
     ;;
     "15")
       rm -rfv node_modules/
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       cache clean --force
       rm -fv "${SCRIPT_DIR}"package-lock.json
     ;;
     "16")
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} ls
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} ls
     ;;
     "17")
       LIB_NAME=
@@ -210,19 +210,19 @@ case "${COMMAND_NUMBER}" in
       else
         LIB_NAME=$2
       fi
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
       update $LIB_NAME
     ;;
     "18")
-      docker run --rm -it -v $(pwd):/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       outdated
     ;;
     "19")
-      docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
              build
     ;;
     "20")
-      docker run --rm -it -v $(pwd):/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
              build --localize $2
     ;;
     "e"|"E") exit
