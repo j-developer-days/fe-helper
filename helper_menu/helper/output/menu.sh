@@ -56,21 +56,21 @@ done
 
 docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=component && \
-sudo chown -vR $(whoami) $(pwd)/src
+sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
 }
 
 create_angular_service(){
   NAME=''
 
 if [ -z "$1" ]; then
-    read -p "Write your SERVICE name, please: " NAME
+    read -rp "Write your SERVICE name, please: " NAME
 else
     NAME=$1
 fi
 
 docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate service services/$NAME --skip-tests=true --type=service && \
-sudo chown -vR $(whoami) $(pwd)/src
+sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
 }
 
 #-----------------------------
@@ -132,7 +132,7 @@ case "${COMMAND_NUMBER}" in
     "4")
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
          generate environments && \
-        sudo chown -vR $(whoami) $(pwd)/src
+        sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
     ;;
     "5")
         sh node_modules/jdev_helpers/angular_folder_structure.sh
