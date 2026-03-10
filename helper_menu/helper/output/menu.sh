@@ -19,13 +19,14 @@ NODE_VERSION_FOR_DOCKER_IMAGE_FULL=node24
 PORT=%s
 
 
-create_angular_component(){
+# shellcheck disable=SC2120
+create_angular_component() {
   NAME=''
 
-if [ -z "$1" ]; then
+if [ -z ${1} ]; then
     read -rp "Write your COMPONENT name, please: " NAME
 else
-    NAME=$1
+    NAME=${1}
 fi
 
 
@@ -45,7 +46,7 @@ while true; do # Loop indefinitely until explicitly broken
         ;;
     esac
 
-    if [ -z "$COMPONENT_TYPE" ]; then
+    if [ -z ${COMPONENT_TYPE} ]; then
         echo "Please repeat!"
     else
         break
@@ -55,26 +56,26 @@ done
 # echo path to creation - /$COMPONENT_TYPE/$NAME
 
 docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
- generate component components/$COMPONENT_TYPE/$NAME --standalone=false --skip-tests=true --type=component && \
+ generate component components/"${COMPONENT_TYPE}"/"${NAME}" --standalone=false --skip-tests=true --type=component && \
 sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
 }
 
-create_angular_service(){
+create_angular_service() {
   NAME=''
 
-if [ -z "$1" ]; then
+if [ -z ${1} ]; then
     read -rp "Write your SERVICE name, please: " NAME
 else
-    NAME=$1
+    NAME=${1}
 fi
 
 docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
- generate service services/$NAME --skip-tests=true --type=service && \
+ generate service services/"${NAME}" --skip-tests=true --type=service && \
 sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
 }
 
 #-----------------------------
-if [ -z "$1" ]; then
+if [ -z ${1} ]; then
   echo '1 - Run application'
   echo '2 - Create angular component'
   echo '3 - Create angular service'
@@ -101,7 +102,7 @@ if [ -z "$1" ]; then
   read -rp "Enter your command number: " COMMAND_NUMBER
 else
   echo 'Run with param...'
-  COMMAND_NUMBER=$1
+  COMMAND_NUMBER=${1}
 fi
 
 echo '||||||||||||||||||||||||||||||||||||||||||||||'
@@ -117,7 +118,7 @@ echo '||||||||||||||||||||||||||||||||||||||||||||||'
 
 #-----------------------------
 
-case "${COMMAND_NUMBER}" in
+case ${COMMAND_NUMBER} in
     "1")
         echo "run project on - http://localhost:${PORT}/"
         docker run --rm -it -p ${PORT}:4200 -v \
@@ -138,40 +139,41 @@ case "${COMMAND_NUMBER}" in
         sh "${SCRIPT_DIR}"node_modules/jdev_helpers/angular_folder_structure.sh
     ;;
     "6")
+    #    https://angular.dev/cli/extract-i18n
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
                  extract-i18n ${2}
     ;;
 
     "10")
         IS_FORCE=
-        if [ -z "$2" ]; then
+        if [ -z ${2} ]; then
           IS_FORCE=
         else
           IS_FORCE=--force
         fi
         
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
-        install $IS_FORCE
+        install "${IS_FORCE}"
     ;;
     "101")
         LIB_NAME=
-        if [ -z "$2" ]; then
+        if [ -z ${2} ]; then
           read -rp "Write please lib name: " LIB_NAME
         else
-          LIB_NAME=$2
+          LIB_NAME=${2}
         fi
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
-               add ${LIB_NAME}
+               add "${LIB_NAME}"
     ;;
     "11")
       LIB_NAME=
-      if [ -z "$2" ]; then
+      if [ -z ${2} ]; then
         read -rp "Write please lib name: " LIB_NAME
       else
-        LIB_NAME=$2
+        LIB_NAME=${2}
       fi
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
-            install ${LIB_NAME} --legacy-peer-deps
+            install "${LIB_NAME}" --legacy-peer-deps
     ;;
     "111")
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
@@ -182,13 +184,13 @@ case "${COMMAND_NUMBER}" in
     ;;
     "13")
       IS_FORCE=
-      if [ -z "$2" ]; then
+      if [ -z ${2} ]; then
         IS_FORCE=
       else
         IS_FORCE=--force
       fi
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
-      audit fix $IS_FORCE
+      audit fix "${IS_FORCE}"
     ;;
     "14")
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
@@ -205,13 +207,13 @@ case "${COMMAND_NUMBER}" in
     ;;
     "17")
       LIB_NAME=
-      if [ -z "$2" ]; then
+      if [ -z ${2} ]; then
         LIB_NAME=
       else
-        LIB_NAME=$2
+        LIB_NAME=${2}
       fi
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
-      update $LIB_NAME
+      update "${LIB_NAME}"
     ;;
     "18")
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
@@ -223,7 +225,7 @@ case "${COMMAND_NUMBER}" in
     ;;
     "20")
       docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
-             build --localize $2
+             build --localize ${2}
     ;;
     "e"|"E") exit
     ;;
