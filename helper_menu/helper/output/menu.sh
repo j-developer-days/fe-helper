@@ -57,7 +57,7 @@ done
 
 docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate component components/"${COMPONENT_TYPE}"/"${NAME}" --standalone=false --skip-tests=true --type=component && \
-sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
+sudo find "${SCRIPT_DIR}"src/app/components/"${COMPONENT_TYPE}"/ -name "*" -exec chown -vR $(whoami) {} +
 }
 
 create_angular_service() {
@@ -71,7 +71,7 @@ fi
 
 docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
  generate service services/"${NAME}" --skip-tests=true --type=service && \
-sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
+sudo find "${SCRIPT_DIR}"src/app/services/ -name "*" -exec chown -vR $(whoami) {} +
 }
 
 #-----------------------------
@@ -133,7 +133,7 @@ case ${COMMAND_NUMBER} in
     "4")
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
          generate environments && \
-        sudo chown -vR $(whoami) "${SCRIPT_DIR}"src
+        sudo find "${SCRIPT_DIR}"src/environments -name "*" -exec chown -vR $(whoami) {} +
     ;;
     "5")
         sh "${SCRIPT_DIR}"node_modules/jdev_helpers/angular_folder_structure.sh
