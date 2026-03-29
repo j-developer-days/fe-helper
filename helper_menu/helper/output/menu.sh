@@ -74,6 +74,20 @@ docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FO
 sudo find "${SCRIPT_DIR}"src/app/services/ -name "*" -exec chown -vR $(whoami) {} +
 }
 
+create_angular_directive() {
+  NAME=''
+
+if [ -z ${1} ]; then
+    read -rp "Write your DIRECTIVE name, please: " NAME
+else
+    NAME=${1}
+fi
+
+docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+ generate directive directives/"${NAME}" --skip-tests=true --standalone=false --export=true --type=directive && \
+sudo find "${SCRIPT_DIR}"src/app/directives/ -name "*" -exec chown -vR $(whoami) {} +
+}
+
 #-----------------------------
 if [ -z ${1} ]; then
   echo '1 - Run application'
@@ -82,6 +96,7 @@ if [ -z ${1} ]; then
   echo '4 - Create angular environments'
   echo '5 - Create angular folder structure'
   echo '6 - Extract angular translations'
+  echo '7 - Create angular directive'
 
   echo '--------------------------------------------------------'
   
@@ -142,6 +157,9 @@ case ${COMMAND_NUMBER} in
     #    https://angular.dev/cli/extract-i18n
         docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir angular-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
                  extract-i18n ${2}
+    ;;
+    "7")
+        create_angular_directive
     ;;
 
     "10")
@@ -212,11 +230,11 @@ case ${COMMAND_NUMBER} in
       else
         LIB_NAME=${2}
       fi
-      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE_FULL} \
       update "${LIB_NAME}"
     ;;
     "18")
-      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util:${NODE_VERSION_FOR_DOCKER_IMAGE} \
+      docker run --rm -it -v "${SCRIPT_DIR}":/myWorkDir nodejs-util-npm:${NODE_VERSION_FOR_DOCKER_IMAGE} \
       outdated
     ;;
     "19")

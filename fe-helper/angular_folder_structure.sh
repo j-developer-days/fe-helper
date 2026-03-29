@@ -9,6 +9,8 @@ mkdir -p "${SCRIPT_DIR}"src/app/components/main
 
 mkdir -p "${SCRIPT_DIR}"src/app/services
 
+mkdir -p "${SCRIPT_DIR}"src/app/directives
+
 mkdir -p "${SCRIPT_DIR}"src/app/helpers
 mkdir -p "${SCRIPT_DIR}"src/app/models
 
