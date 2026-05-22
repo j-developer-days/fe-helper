@@ -1,0 +1,6 @@
+docker run --rm -it -v ./:/myWorkDir angular-util:node24a new jdev-fe-helper-workspace --no-create-application
+
+cd jdev-fe-helper-workspace
+
+
+docker run --rm -it -v ./:/myWorkDir angular-util:node24a generate library js-angular-utils

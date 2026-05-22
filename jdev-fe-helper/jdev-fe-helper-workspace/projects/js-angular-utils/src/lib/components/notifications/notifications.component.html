@@ -1,0 +1,24 @@
+<div class="notifications">
+  @let alertsModelLocal = alertsModel();
+  @if(alertsModelLocal) {
+  @for (alert of alertsModelLocal.wrapper; track $index; let i = $index) {
+  <div class="alert notification" [class]="'alert-' + alert.alertType" role="alert">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+          {{ alert.textToShow }}
+        </div>
+        <div class="col-4 text-end">
+          {{ alert.alertTimeOutInSecondsCurrent }} / {{ alert.alertTimeOutInSeconds }}
+        </div>
+      </div>
+    </div>
+    @if(alert.showCloseButton) {
+    <button class="btn closeButton" (click)="closeButtonClickEvent(i)">
+      <i class="bi bi-x"></i>
+    </button>
+    }
+  </div>
+  }
+  }
+</div>

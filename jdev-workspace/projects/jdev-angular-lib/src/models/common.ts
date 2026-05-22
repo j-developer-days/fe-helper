@@ -1,8 +1,13 @@
 export interface CommonResposeDataWithPaginationInfo {
   nextCursor: string | null;
-  similarity: number;
-  matchScore: number;
+  similarity: number | null;
+  matchScore: number | null;
 }
+
+export interface QueryParamWithCommonResposeDataWithPaginationInfo extends CommonResposeDataWithPaginationInfo {
+  query: string;
+}
+
 
 export interface CommonResposeDataWithPagination<T> extends CommonResposeDataWithPaginationInfo {
   hasMore: boolean;

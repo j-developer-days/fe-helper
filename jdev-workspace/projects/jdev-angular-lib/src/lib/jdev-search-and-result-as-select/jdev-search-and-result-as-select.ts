@@ -53,19 +53,22 @@ export class JdevSearchAndResultAsSelect implements OnChanges {
         if (this.previousData.request === dataResponseForSelectModelLocal.request) {
           this.previousData.request = dataResponseForSelectModelLocal.request;
 
-          const length = this.previousData.response!.items.length;
           let count: number = 0;
-          for (const item of dataResponseForSelectModelLocal.response!.items) {
-            const itemAsString: string = JSON.stringify(item);
-            for (let i = 0; i < length; i++) {
-              if (itemAsString === JSON.stringify(this.previousData.response!.items[i])) {
-                count++;
-                break;
+          if (this.previousData.response && this.previousData.response.items !== null) {
+            const length = this.previousData.response!.items.length;
+            for (const item of dataResponseForSelectModelLocal.response!.items!) {
+              const itemAsString: string = JSON.stringify(item);
+              for (let i = 0; i < length; i++) {
+                if (itemAsString === JSON.stringify(this.previousData.response!.items[i])) {
+                  count++;
+                  break;
+                }
               }
             }
           }
 
-          if (count !== dataResponseForSelectModelLocal.response!.items.length) {
+
+          if (count !== dataResponseForSelectModelLocal.response!.items!.length) {
             this.previousData.response!.hasMore = dataResponseForSelectModelLocal.response!.hasMore;
             this.previousData.response!.matchScore = dataResponseForSelectModelLocal.response!.matchScore;
             this.previousData.response!.nextCursor = dataResponseForSelectModelLocal.response!.nextCursor;
@@ -74,13 +77,15 @@ export class JdevSearchAndResultAsSelect implements OnChanges {
             // this.previousData.response!.items.concat(dataResponseForSelectModelLocal.response!.items);
 
             const temp: Set<string> = new Set<string>;
-            this.arrayIterate(this.previousData.response!.items, temp);
-            this.arrayIterate(dataResponseForSelectModelLocal.response!.items, temp);
+            if (this.previousData.response && this.previousData.response.items !== null) {
+              this.arrayIterate(this.previousData.response!.items, temp);
+            }
+            this.arrayIterate(dataResponseForSelectModelLocal.response!.items!, temp);
 
-            this.previousData.response!.items.length = 0;
+            this.previousData.response!.items!.length = 0;
 
             for (const item of temp) {
-              this.previousData.response!.items.push(JSON.parse(item));
+              this.previousData.response!.items!.push(JSON.parse(item));
             }
           }
         } else {

@@ -1,0 +1,20 @@
+@if(field()().requiredError){
+<div class="col-12">
+    <span
+        [class]="(field()().requiredError?.errorStatus && field()().requiredError?.errorStatus === true) ? 'errorValidation' : 'successValidation'">
+        {{ field()().requiredError?.errorMessage }}
+        <i class="bi"
+            [class]="(field()().requiredError?.errorStatus && field()().requiredError?.errorStatus === true) ? 'bi-x-circle-fill' : 'bi-check-circle-fill'"></i>
+    </span>
+</div>
+}
+
+@for (error of field()().errors; track error) {
+<div class="col-12">
+    <span [class]="(error.errorStatus && error.errorStatus === true) ? 'errorValidation' : 'successValidation'">{{
+        error.errorMessage }}
+        <i class="bi"
+            [class]="(error.errorStatus && error.errorStatus === true) ? 'bi-x-circle-fill' : 'bi-check-circle-fill'"></i>
+    </span>
+</div>
+}

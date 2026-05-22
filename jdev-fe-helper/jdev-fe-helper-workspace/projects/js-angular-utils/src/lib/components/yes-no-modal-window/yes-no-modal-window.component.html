@@ -1,0 +1,31 @@
+<jdev-modal-window #modalWindowForClearForm [modalWindowSizeInput]="'lg'">
+    <h4 header class="modal-title" id="modal-basic-title">
+        @let modalTitleInputLocal = modalTitleInput();
+        {{ modalTitleInputLocal === undefined ? 'Clear registration form' : modalTitleInputLocal }}!</h4>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-12">
+                @let modalQuestionInputLocal = modalQuestionInput();
+                <h2 class="modal-title" id="modal-basic-title">
+                    {{ modalQuestionInputLocal === undefined ? 'Do you want to clear form?' : modalQuestionInputLocal }}
+                </h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4">
+                @let modalQuestionAnswerYesInputLocal = modalQuestionAnswerYesInput();
+                <button type="button" class="btn btn-lg btn-danger w-100 activeButton" #yesButton
+                    (click)="yesClickEvent()">
+                    {{ modalQuestionAnswerYesInputLocal === undefined ? 'Yes' : modalQuestionAnswerYesInputLocal }}
+                </button>
+            </div>
+            <div class="col-4">
+                @let modalQuestionAnswerNoInputLocal = modalQuestionAnswerNoInput();
+                <button type="button" class="btn btn-lg btn-success w-100"
+                    (click)="noClickEvent()">
+                {{ modalQuestionAnswerNoInputLocal === undefined ? 'No' : modalQuestionAnswerNoInputLocal }}
+                </button>
+            </div>
+        </div>
+    </div>
+</jdev-modal-window>

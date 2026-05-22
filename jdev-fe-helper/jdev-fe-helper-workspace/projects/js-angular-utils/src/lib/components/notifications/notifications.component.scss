@@ -1,0 +1,21 @@
+.notifications {
+    position: absolute;
+    top: 10px;
+    left: 10%;
+    width: 75%;
+}
+
+div.notification {
+    opacity: 0.4;
+}
+
+div.notification:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.closeButton {
+    position: absolute;
+    right: 0;
+    top: 11px;
+}

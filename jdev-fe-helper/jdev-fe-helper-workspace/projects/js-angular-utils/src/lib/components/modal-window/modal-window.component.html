@@ -1,0 +1,18 @@
+<ng-template #modalWindow let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <!-- Multi-Slot Projection (Named Slots) -->
+        <ng-content select="[header]"></ng-content>
+        <button type="button" class="btn-close" (click)="closeOrDismissModalWindowClickEvent(false)"></button>
+    </div>
+    <div class="modal-body">
+        <!-- Content Projection -->
+        <ng-content></ng-content>
+    </div>
+    <div class="modal-footer">
+        <ng-content select="[footer]"></ng-content>
+        @if(showCloseButtonInFooter()) {
+        <button type="button" class="btn btn-outline-secondary"
+            (click)="closeOrDismissModalWindowClickEvent(true)">Close window</button>
+        }
+    </div>
+</ng-template>

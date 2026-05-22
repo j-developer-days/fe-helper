@@ -1,12 +1,18 @@
 {
   "name": "jdev-angular-lib",
-  "version": "1.4.2",
+  "version": "1.4.5",
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./style.css": "../../dist/style.css"
   },
   "sideEffects": false
 }
