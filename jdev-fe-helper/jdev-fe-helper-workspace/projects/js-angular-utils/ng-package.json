@@ -6,6 +6,7 @@
   },
   "assets": [
     "style.css",
-    "angular.component.comments.txt"
+    "angular.component.comments.txt",
+    "angular_folder_structure.sh"
   ]
 }

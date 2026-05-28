@@ -7,6 +7,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
 import { YesNoModalWindowComponent } from './components/yes-no-modal-window/yes-no-modal-window.component';
 
+
 const arrayOfComponents = [
   CountOfSymbolsShowComponent,
   ModalWindowComponent,

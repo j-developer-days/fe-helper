@@ -16,8 +16,11 @@ export * from './lib/constants/common';
 export * from './lib/constants/validation';
 
 //helpers
+export * from './lib/helpers/angular-helpers';
 export * from './lib/helpers/common-helper';
 export * from './lib/helpers/converter';
+export * from './lib/helpers/http-helpers';
+export * from './lib/helpers/storage-helpers';
 export * from './lib/helpers/valiadation';
 
 // models
@@ -25,6 +28,9 @@ export * from './lib/models/common';
 export * from './lib/models/internal';
 export * from './lib/models/validation';
 export * from './lib/models/meal-dto';
+
+//service
+export * from './lib/services/http-parent.service';
 
 //module(component already will be import thru module!)
 export * from './lib/jdev-js-angular-utils.module';

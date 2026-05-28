@@ -112,7 +112,7 @@
   },
   "include": [
     "src"                  /* Include all .ts files in the src directory */
-  ],
+, "../jdev-fe-helper/jdev-fe-helper-workspace/projects/js-angular-utils/src/lib/service/http-parent.service.ts", "../jdev-fe-helper/jdev-fe-helper-workspace/projects/js-angular-utils/src/lib/helpers/storage-helpers.ts"  ],
   "exclude": [
     "node_modules"                /* Exclude test files from general compilation */
   ]

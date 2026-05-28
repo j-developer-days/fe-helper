@@ -7,3 +7,7 @@ export const setEmptyForStringField = (signalFieldString: WritableSignal<Field<s
         fieldData: ''
     }));
 }
+
+export const debug = (message?: any, ...optionalParams: any[]): void => {
+    console.log(message, ...optionalParams);
+}
